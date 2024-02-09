@@ -12,7 +12,7 @@ const Home: React.FC = () => {
   const fetchWeatherData = async (location: string) => {
     try {
       const geocodingResponse = await axios.get(
-        `http://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=b6e00456ca5c42947006764fc8f28b79`
+        `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=b6e00456ca5c42947006764fc8f28b79`
       );
 
       if (geocodingResponse.data.length === 0) {
