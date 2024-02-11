@@ -3,6 +3,9 @@ import axios from "axios";
 import WeatherSearch from "../components/Search/weatherSearch";
 import WeatherDisplay from "../components/Display/weatherDisplay";
 import styles from "../styles/Home.module.css";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import Instruction from "@/components/Instruction";
 
 const Home: React.FC = () => {
   const [showInstructions, setShowInstructions] = useState(true);
@@ -16,7 +19,6 @@ const Home: React.FC = () => {
       );
 
       if (geocodingResponse.data.length === 0) {
-        console.error("Geocoding API did not return any results.");
         return;
       }
 
@@ -73,39 +75,23 @@ const Home: React.FC = () => {
     }
   };
 
-  const handleImageClick = () => {
-    setShowInstructions(true);
-    setWeatherData(null);
-    setCityName("");
-  };
-
   return (
     <>
-      <header className={styles.header}>
-        <div className={`flex items-center relative`} onClick={handleImageClick}>
-          <img src={"/Logo.png"} alt="Logo" className={`max-h-12 mr-3`} />{" "}
-          <span className={`text-lg`}>WEATHERMATE</span>{" "}
-        </div>
-        <WeatherSearch onSubmit={fetchWeatherData} />
-      </header>
-
       <main className={styles.main}>
-        {showInstructions && (
-          <div className={styles.instrunction}>
-            <img src={"/Logo.png"} alt="Logo" className={styles.image} />{" "}
-            <p><span className={styles.bold}>Welcome to WEATHERMATE!</span> <br/>Enter a city to get weather information.</p>
-            <p>You can get the city's current weather and 5-day forecast!</p>
-          </div>
-        )}
-        {weatherData && !showInstructions && (
-          <WeatherDisplay
-            currentWeather={weatherData.current}
-            forecast={weatherData.forecast}
-            cityName={cityName}
-          />
-        )}
+        <Header />
+        <WeatherSearch onSubmit={fetchWeatherData} />
+        {showInstructions && <Instruction />}
+        <div className={styles.display}>
+          {weatherData && !showInstructions && (
+            <WeatherDisplay
+              currentWeather={weatherData.current}
+              forecast={weatherData.forecast}
+              cityName={cityName}
+            />
+          )}
+        </div>
+        <Footer />
       </main>
-      <footer className={styles.footer}>© 2024 Sebin Lee</footer>
     </>
   );
 };

@@ -96,9 +96,9 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({
       <div>
         <p
           style={{
-            fontWeight: "bold",
             fontSize: "bigger",
-            marginBottom: 10,
+            marginBottom: 15,
+            textAlign: "center",
           }}
         >
           5-Day Forecast
